@@ -1,0 +1,253 @@
+Insert(x,y,z)
+//x is a root node. z is a new node to be inserted. k is the key of node z.
+{
+1. If x =null then x z and return.
+2. y x
+3. while(y!=null)do{
+4. ty	
+5. if key[y]>k
+6. then y left[y]
+7. else y right[y]
+8. }
+9. P[z] t
+10. if k< key[t] then left[t]z
+11. else right[t]z
+12. }
+
+CODE:-
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int key;
+    struct node *left, *right;
+};
+struct node* newNode(int item)
+{
+    struct node* temp
+        = (struct node*)malloc(sizeof(struct node));
+    temp->key = item;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+void inorder(struct node* root)
+{
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->key);
+        inorder(root->right);
+    }
+}
+struct node* insert(struct node* node, int key)
+{
+    if (node == NULL)
+        return newNode(key);
+    if (key < node->key)
+        node->left = insert(node->left, key);
+    else if (key > node->key)
+        node->right = insert(node->right, key);
+    return node;
+}
+int main()
+{
+    struct node* root = NULL;
+    root = insert(root, 50);
+    insert(root, 12);
+    insert(root, 7);
+    insert(root, 15);
+    insert(root, 21);
+    insert(root, 26);
+    insert(root, 31);
+    inorder(root);
+    return 0;
+}
+
+CODE 2
+#include<stdio.h>  
+#include<stdlib.h>  
+void insert(int);  
+struct node  
+{  
+    int data;  
+    struct node *left;   
+    struct node *right;   
+};  
+struct node *root;  
+void main ()  
+{  
+    int choice,item;  
+    do   
+    {  
+        printf("\nEnter the item which you want to insert?\n");  
+        scanf("%d",&item);  
+        insert(item);  
+        printf("\nPress 0 to insert more ?\n");  
+        scanf("%d",&choice);  
+    }while(choice == 0);  
+}  
+void insert(int item)  
+{  
+    struct node *ptr, *parentptr , *nodeptr;  
+    ptr = (struct node *) malloc(sizeof (struct node));  
+    if(ptr == NULL)  
+    {  
+        printf("can't insert");  
+    }  
+    else   
+    {  
+    ptr -> data = item;  
+    ptr -> left = NULL;  
+    ptr -> right = NULL;   
+    if(root == NULL)  
+    {  
+        root = ptr;  
+        root -> left = NULL;  
+        root -> right = NULL;  
+    }  
+    else   
+    {  
+        parentptr = NULL;  
+        nodeptr = root;   
+        while(nodeptr != NULL)  
+        {  
+            parentptr = nodeptr;   
+            if(item < nodeptr->data)  
+            {  
+                nodeptr = nodeptr -> left;   
+            }   
+            else   
+            {  
+                nodeptr = nodeptr -> right;  
+            }  
+        }  
+        if(item < parentptr -> data)  
+        {  
+            parentptr -> left = ptr;   
+        }  
+        else   
+        {  
+            parentptr -> right = ptr;   
+        }  
+    }  
+    printf("Node Inserted");  
+    }  
+}  
+
+deletion
+Delete (TREE, VAL)
+1: IF TREE = NULL
+Write "VAL not found in the tree"
+ELSE IF VAL < TREE DATA
+Delete(TREE->LEFT, VAL)
+ELSE IF VAL > TREE DATA
+Delete(TREE RIGHT, VAL)
+ELSE IF TREE LEFT AND TREE RIGHT
+SET TEMP = findLargestNode(TREE LEFT)
+SET TREE DATA = TEMP DATA
+Delete(TREE LEFT, TEMP DATA)
+ELSE
+SET TEMP = TREE
+IF TREE LEFT = NULL AND TREE RIGHT = NULL
+SET TREE = NULL
+ELSE IF TREE LEFT != NULL
+SET TREE = TREE LEFT
+ELSE
+SET TREE = TREE RIGHT
+[END OF IF]
+FREE TEMP
+[END OF IF]
+2: END
+CODE:-
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+int key;
+struct Node *left, *right;
+};
+struct Node* newNode(int item)
+{
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->key = item;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+void inorder(struct Node* root)
+{
+    if (root != NULL) {
+    inorder(root->left);
+    printf("%d ", root->key);
+   inorder(root->right);
+    }
+}
+struct Node* insert(struct Node* node, int key)
+{
+    if (node == NULL)
+        return newNode(key);
+    if (key < node->key)
+        node->left = insert(node->left, key);
+    else
+        node->right = insert(node->right, key);
+    return node;
+}
+struct Node* deleteNode(struct Node* root, int k)
+{
+    if (root == NULL)
+        return root;
+    if (root->key > k) {
+        root->left = deleteNode(root->left, k);
+        return root;
+    }
+    else if (root->key < k) {
+        root->right = deleteNode(root->right, k);
+        return root;
+    }
+    if (root->left == NULL) {
+        struct Node* temp = root->right;
+        free(root);
+        return temp;
+    }
+    else if (root->right == NULL) {
+        struct Node* temp = root->left;
+        free(root);
+        return temp;
+    }
+    else {
+        struct Node* succParent = root;
+        struct Node* succ = root->right;
+        while (succ->left != NULL) {
+            succParent = succ;
+            succ = succ->left;
+        }
+        if (succParent != root)
+            succParent->left = succ->right;
+        else
+            succParent->right = succ->right;
+        root->key = succ->key;
+        free(succ);
+        return root;
+    }
+}
+int main()
+{
+    struct Node* root = NULL;
+    root = insert(root, 26);
+    root = insert(root, 12);
+    root = insert(root, 7);
+    root = insert(root, 15);
+    root = insert(root, 21);
+    root = insert(root, 31);
+    printf("Original BST: ");
+    inorder(root);
+    printf("\n\nDelete a Leaf Node: 7\n");
+    root = deleteNode(root, 7);
+    printf("Modified BST tree after deleting Leaf Node:\n");
+    inorder(root);
+    printf("\n\nDelete Node with single child: 21\n");
+    root = deleteNode(root, 21);
+    printf("Modified BST tree after deleting single child Node:\n");
+    inorder(root);
+    printf("\n\nDelete Node with both child: 26\n");
+    root = deleteNode(root, 26);
+    printf("Modified BST tree after deleting both child Node:\n");
+    inorder(root);
+    return 0;
+}
