@@ -1,0 +1,289 @@
+Algorithm to insert a value in linear probing
+    Hashtable is an array of size = TABLE_SIZE
+  1. Read the value to be inserted, key
+  2.  let i = 0
+  3. hkey = key% TABLE_SIZE
+  4. compute the index at which the key has to be inserted in hash table
+                index = (hkey + i) % TABLE_SIZE
+  5. if there is no element at that index then  insert the value at index and STOP
+  6. If there is already an element at that index
+                step 4.1: i = i+1
+  7.  if i < TABLE_SIZE then go to step 4.
+Algorithm to search a value in linear probing
+Hashtable is an array of size = TABLE_SIZE.
+ 1. Read the value to be searched, key.
+ 2.  let i = 0
+3. hkey = key% TABLE_SIZE.
+4. compute the index at which the key can be found
+               index = (hkey+ i) % TABLE_SIZE
+5. if the  element at that index is same as the search value then print element found and  STOP.
+6. else
+     step 4.1: i = i+1
+7.  if i < TABLE_SIZE then go to step 4.
+ 
+CODE :-
+#include <stdio.h>
+#include<stdlib.h>
+#define TABLE_SIZE 10
+int h[TABLE_SIZE]={NULL};
+void insert()
+{
+ int key,index,i,flag=0,hkey;
+ printf("\nenter a value to insert into hash table\n");
+ scanf("%d",&key);
+ hkey=key%TABLE_SIZE;
+ for(i=0;i<TABLE_SIZE;i++)
+    {
+     index=(hkey+i)%TABLE_SIZE;
+     if(h[index] == NULL)
+     {
+        h[index]=key;
+         break;
+     }
+    }
+    if(i == TABLE_SIZE)
+     printf("\nelement cannot be inserted\n");
+}
+void search(){
+ int key,index,i,flag=0,hkey;
+ printf("\nenter search element\n");
+ scanf("%d",&key);
+ hkey=key%TABLE_SIZE;
+ for(i=0;i<TABLE_SIZE; i++)
+ {
+    index=(hkey+i)%TABLE_SIZE;
+    if(h[index]==key)
+    {
+      printf("value is found at index %d",index);
+      break;
+    }
+  }
+  if(i == TABLE_SIZE)
+    printf("\n value is not found\n");
+}
+void display()
+{
+  int i;
+  printf("\nelements in the hash table are \n");
+  for(i=0;i< TABLE_SIZE; i++)
+  printf("\nat index %d \t value =  %d",i,h[i]);
+}
+main()
+{
+    int opt,i;
+    while(1)
+    {
+       printf("\nPress\t\n   1.Insert\n\t2. Display\n\t3. Search \n\t4.Exit \n");
+        scanf("%d",&opt);	
+        switch(opt)
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                search();
+                break;
+            case 4:exit(0);
+        }
+    }
+}
+
+quardratic
+Algorithm to insert a value in quadratic probing
+
+Hashtable is an array of size = TABLE_SIZE
+1: Read the value to be inserted, key
+2:  let i = 0
+3:  hkey=key%TABLE_SIZE
+4: compute the index at which the value has to be inserted in hash table
+                index = (hkey+ i * i) % TABLE_SIZE
+5: if there is no element at that index then  insert the value at index and STOP
+6: If there is already an element at that index
+                step 4.1: i = i+1
+7:  if i < TABLE_SIZE then go to step 4
+Algorithm to search a value in quadratic probing
+
+Hashtable is an array of size = TABLE_SIZE
+1: Read the value to be searched, key
+2:  let i = 0
+3:  hkey=key%TABLE_SIZE
+4: compute the index at which the value can be found
+                index = (hkey + i * i) % TABLE_SIZE
+5: if the  element at that index is same as the search value then print element found and  STOP
+6: else
+                step 4.1: i = i+1
+7:  if i < TABLE_SIZE then go to step 4
+ 
+CODE:-
+#include <stdio.h>
+#include<stdlib.h>
+#define TABLE_SIZE 10
+int h[TABLE_SIZE]={NULL};
+void insert()
+{
+ int key,index,i,flag=0,hkey;
+ printf("\nenter a value to insert into hash table\n");
+ scanf("%d",&key);
+ hkey=key%TABLE_SIZE;
+ for(i=0;i<TABLE_SIZE;i++)
+{
+     index=(hkey+i*i)%TABLE_SIZE;
+     if(h[index] == NULL)
+     {
+        h[index]=key;
+         break;
+     }
+}
+if(i == TABLE_SIZE)
+     printf("\nelement cannot be inserted\n");
+}
+void search()
+{
+
+ int key,index,i,flag=0,hkey;
+ printf("\nenter search element\n");
+ scanf("%d",&key);
+ hkey=key%TABLE_SIZE;
+ for(i=0;i<TABLE_SIZE; i++)
+ {
+    index=(hkey+i*i)%TABLE_SIZE;
+    if(h[index]==key)
+    {
+      printf("value is found at index %d",index);
+      break;
+    }
+  }
+  if(i == TABLE_SIZE)
+    printf("\n value is not found\n");
+}
+void display()
+{
+  int i;
+  printf("\nelements in the hash table are \n");
+  for(i=0;i< TABLE_SIZE; i++)
+            printf("\nat index %d \t value =  %d",i,h[i]);
+}
+main()
+{
+    int opt,i;
+    while(1)
+    {
+        printf("\nPress 1. Insert\t 2. Display \t3. Search \t4.Exit \n");
+        scanf("%d",&opt);
+        switch(opt)
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                search();
+                break;
+            case 4:exit(0);
+        }
+    }
+}
+
+double
+Algorithm to insert a value in Double hashing
+Hashtable is an array of size = TABLE_SIZE
+1: Read the value to be inserted,key
+2:  let i = 0
+3: Let R be the nearest prime < TABLE_SIZE
+4:  hkey=key%TABLE_SIZE
+5: compute the index at which the value has to be inserted in hash table
+                index = (hkey + i * (R- (value % R))% TABLE_SIZE
+6: if there is no element at that index then  insert the value at index and STOP
+7: If there is already an element at that index
+                step 6.1: i = i+1
+8:  if i < TABLE_SIZE then go to step 5
+Algorithm to search a value in Double Hashing
+
+Hashtable is an array of size = TABLE_SIZE
+1: Read the value to be searched, key
+2:  let i = 0
+3: Let R be the nearest prime < TABLE_SIZE
+4:  hkey=key%TABLE_SIZE
+5: compute the index at which the value can be found
+                index = (hkey + i * (R- (value % R))% TABLE_SIZE
+6: if the  element at that index is same as the search value then print element found and  STOP
+7: If there is already an element at that index
+                step 6.1: i = i+1
+8:  if i < TABLE_SIZE then go to step 5
+ 
+CODE:-
+#include <stdio.h>
+#include<stdlib.h>
+#define TABLE_SIZE 10
+int h[TABLE_SIZE]={NULL};
+void insert()
+{
+ int key,index,i,flag=0,hkey,hash2;
+ printf("\nenter a value to insert into hash table\n");
+ scanf("%d",&key);
+ hkey=key%TABLE_SIZE;
+ hash2 = 7-(key %7);
+ for(i=0;i<TABLE_SIZE;i++)
+ {
+    index=(hkey+i*hash2)%TABLE_SIZE;
+    if(h[index] == NULL)
+    {
+        h[index]=key;
+        break;
+    }}
+ if(i == TABLE_SIZE)
+     printf("\nelement cannot be inserted\n");
+}
+void search()
+{int key,index,i,flag=0,hash2,hkey;
+ printf("\nenter search element\n");
+ scanf("%d",&key);
+  hkey=key%TABLE_SIZE;
+ hash2 = 7-(key %7);
+ for(i=0;i<TABLE_SIZE; i++)
+ {
+    index=(hkey+i*hash2)%TABLE_SIZE;
+    if(h[index]==key)
+    {
+      printf("value is found at index %d",index);
+      break;
+    }
+  }
+  if(i == TABLE_SIZE)
+    printf("\n value is not found\n");
+}
+void display()
+{
+  int i;
+  printf("\nelements in the hash table are \n");
+  for(i=0;i< TABLE_SIZE; i++)
+    printf("\nat index %d \t value =  %d",i,h[i]);
+}
+main()
+{
+    int opt,i;
+    while(1)
+    {
+       printf("\nPress:\n\t 1.Insert\t2.Display\t3.Search\t4.Exit \n");
+        scanf("%d",&opt);
+        switch(opt)
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                search();
+                break;
+            case 4:exit(0);
+        }
+    }
+}
+
